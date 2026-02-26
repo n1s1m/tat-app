@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from '@/components/button/button';
-import Form from "./components/form";
-import { GeoEntity } from '@/lib/models';
 import { useCallback } from 'react';
+import SearchForm from "@/components/search-form/search-form";
+import { Button } from '@/components/button/button';
+import { GeoEntity } from '@/lib/models';
 
 export default function FirstPage() {
 
@@ -13,9 +13,9 @@ export default function FirstPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <Form className="min-w-350 p-4" handleSubmit={handleSubmit}>
+      <SearchForm className="min-w-350 p-4" handleSubmit={handleSubmit}>
         <Button type="submit" className="btn-primary w-100 py-3">Знайти</Button>
-      </Form>
+      </SearchForm>
     </div>
   );
 }

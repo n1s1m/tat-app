@@ -1,6 +1,6 @@
-import { CountryItem } from "@/app/first/components/country-item";
-import { CityItem } from "@/app/first/components/city-item";
-import { HotelItem } from "@/app/first/components/hotel-item";
+import { CountryItem } from "@/components/search-form/country-item";
+import { CityItem } from "@/components/search-form/city-item";
+import { HotelItem } from "@/components/search-form/hotel-item";
 import { GeoEntity } from "../models";
 
 // render item content based on item type
