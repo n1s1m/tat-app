@@ -9,7 +9,7 @@ import { HotelData, usePricesAndHotelsByCountry } from "@/lib/hooks/third-task/u
 import { useCountriesQuery } from "@/lib/hooks/third-task/use-countries-query";
 
 // note: import SearchForm from './components/search-form' instead of '@/components/search-form/search-form' because we need to pass countries to the search form
-import SearchForm from './components/search-form';
+import SearchFormWithBonus from './components/search-form-with-bonus';
 import Hotel from './components/hotel';
 
 const formatter = new Intl.NumberFormat('fr-FR');
@@ -45,9 +45,9 @@ export default function ThirdPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center flex-col gap-4">
-      <SearchForm className="min-w-350 p-4 rounded-lg" handleSubmit={handleSubmit} countries={countries} handleItemChange={handleItemChange}>
+      <SearchFormWithBonus className="min-w-350 p-4 rounded-lg" handleSubmit={handleSubmit} countries={countries} handleItemChange={handleItemChange}>
         <Button type="submit" className="btn-primary w-100 py-3" disabled={disabled}>Знайти</Button>
-      </SearchForm>
+      </SearchFormWithBonus>
       {loading && <div>Loading...</div>}
       {error && <p className="text-red">Error: {error.message}</p>}
       {isEmpty && <div>За вашим запитом турів не знайдено</div>}
