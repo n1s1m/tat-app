@@ -1,3 +1,5 @@
+'use client';
+
 import { Country } from "@/lib/models";
 
 export const CountryItem = ({ country }: { country: Country }) => {

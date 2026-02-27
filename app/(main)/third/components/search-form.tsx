@@ -2,11 +2,11 @@
 
 import { useMemo, useRef } from "react";
 
-import { Dropdown, DropdownRef } from "../../../../components/dropdown/dropdown";
-import { DropdownItem } from "../../../../components/dropdown/dropdown-item";
-import { GeoEntity } from "../../../../lib/models";
-import { searchFormItemRenderContent } from "../../../../lib/helpers/search-form-item-render-content";
-import { useSearchForm } from "../../../../lib/hooks/third-task/use-search-form";
+import { Dropdown, DropdownRef } from "@/components/dropdown/dropdown";
+import { DropdownItem } from "@/components/dropdown/dropdown-item";
+import { GeoEntity } from "@/lib/models";
+import { searchFormItemRenderContent } from "@/lib/helpers/search-form-item-render-content";
+import { useSearchForm } from "@/lib/hooks/third-task/use-search-form";
 
 export default function SearchForm({ children, className, handleSubmit, countries, handleItemChange }: { children: React.ReactNode, className?: string, handleSubmit: (selectedItem: GeoEntity | null) => void, countries: GeoEntity[], handleItemChange: (selectedItem: GeoEntity | null) => void }) {
     const dropdownRef = useRef<DropdownRef>(null);

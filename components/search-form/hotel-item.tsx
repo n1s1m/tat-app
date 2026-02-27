@@ -1,3 +1,5 @@
+'use client';
+
 import { Hotel } from 'lucide-react';
 
 import { Hotel as HotelEntity } from "@/lib/models";

@@ -1,3 +1,5 @@
+'use client';
+
 import { MapPin } from 'lucide-react';
 
 import { City as CityEntity } from "@/lib/models";

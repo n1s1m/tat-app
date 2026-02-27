@@ -1,8 +1,12 @@
+'use client';
+
 import { useCallback, useEffect, useState, memo, useRef, useImperativeHandle } from "react";
 import * as React from "react";
-import { Input } from "@/components/input/input";
-import { Button } from "@/components/button/button";
+
 import { X } from "lucide-react";
+
+import { Input } from "@/components/input/input"; 
+import { Button } from "@/components/button/button";
 
 
 export const useDropdown = ({initialOpen, closeOnClickOutside = true, onOpen, onClose}: {initialOpen: boolean, closeOnClickOutside?: boolean, onOpen?: () => void | Promise<void>, onClose?: () => void | Promise<void> }) => {
