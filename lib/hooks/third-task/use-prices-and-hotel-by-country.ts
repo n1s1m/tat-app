@@ -2,7 +2,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import { pricesApi } from '@/lib/api/prices';
 import { useRef, useState } from 'react';
 import { hotelsApi } from '@/lib/api/hotels';
-import { Country, Hotel } from '@/lib/models';
+import { Hotel } from '@/lib/models';
+import { StringifyOptions } from 'querystring';
 
 interface SearchPricesState {
   loading: boolean;
@@ -20,7 +21,7 @@ export interface SearchPricesResponse {
   startDate: string;
 }
 
-export type HotelData = SearchPricesResponse & { hotel: Hotel, price: string, startDate: string, country: Country, countryId: string };
+export type HotelData = SearchPricesResponse & { hotel: Hotel, price: StringifyOptions };
 
 export function usePricesAndHotelsByCountry(retry: number = 2): { loading: boolean, error: Error | null, data: HotelData[], isEmpty: boolean, fetchPrices: (countryID: string) => void } {
   const [{ loading, error, data, isEmpty }, setState] = useState<SearchPricesState>({ loading: false, error: null, data: [], isEmpty: false });

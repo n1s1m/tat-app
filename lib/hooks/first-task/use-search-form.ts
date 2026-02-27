@@ -62,7 +62,7 @@ export function useSearchForm({ handleSubmit, dropdownRef }: { handleSubmit: (se
     }, [setSearch, setSelectedItem, setType]);
 
     // handle submit form
-    const onSubmit = (e?: React.FormEvent<HTMLFormElement> | undefined) => {
+    const onSubmit = useCallback((e?: React.FormEvent<HTMLFormElement> | undefined) => {
         // prevent default form submission
         if (e) {
             e.preventDefault();
@@ -76,7 +76,7 @@ export function useSearchForm({ handleSubmit, dropdownRef }: { handleSubmit: (se
         dropdownRef?.current?.close();
         // call handleSubmit callback
         handleSubmit(selectedItem);
-    };
+    }, [selectedItem, dropdownRef, handleSubmit]);
 
     // handle open dropdown
     const onOpen = useCallback(() => {

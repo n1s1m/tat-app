@@ -14,23 +14,15 @@ import Hotel from './components/hotel';
 
 const formatter = new Intl.NumberFormat('fr-FR');
 
-interface UsePricesAndHotelsByCountryResponse {
-  data: HotelData[];
-  loading: boolean;
-  error: Error | null;
-  isEmpty: boolean;
-  fetchPrices: (countryID: string) => void;
-}
-
 export default function ThirdPage() {
   const { countries, countriesDictionary, isLoading: countriesLoading, error: countriesError } = useCountriesQuery();
-  const { data, loading, error, isEmpty, fetchPrices }: UsePricesAndHotelsByCountryResponse = usePricesAndHotelsByCountry(2);
+  const { data, loading, error, isEmpty, fetchPrices }: ReturnType<typeof usePricesAndHotelsByCountry> = usePricesAndHotelsByCountry(2);
   const [ disabled, setDisabled ] = useState(false);
 
   // disable button when loading
   useEffect(() => {
     setDisabled(loading);
-  }, [loading, setDisabled]);
+  }, [loading]);
 
   // render hotel items
   const renderItems = useMemo(() => data.map((item: HotelData) => {

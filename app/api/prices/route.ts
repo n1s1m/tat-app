@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     } catch (e: any) {
       return NextResponse.json(
         { error: e.message },
-        { status: e.status }
+        { status: e.code }
       );
     }
   }
@@ -29,7 +29,7 @@ export async function GET(request: Request): Promise<any> {
     } catch (e: any) {
       return NextResponse.json(
         { error: e.message },
-        { status: e.status }
+        { status: e.code }
       );
     }
 }
@@ -46,6 +46,6 @@ export async function DELETE(request: Request): Promise<any> {
     try {
         return NextResponse.json(await stopSearchPrices(token));
     } catch (e: any) {
-        return NextResponse.json({ error: e.message }, { status: e.status });
+        return NextResponse.json({ error: e.message }, { status: e.code });
     }
 }

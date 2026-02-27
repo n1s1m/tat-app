@@ -4,7 +4,7 @@ import { useEffect, useCallback, useState } from "react";
 
 import { DropdownRef } from "@/components/dropdown/dropdown";
 
-import { GeoEntity } from "../../models";
+import { GeoEntity } from "@/lib/models";
 import { useSearch } from "./use-search";
 
 
@@ -64,7 +64,7 @@ export function useSearchForm({ handleSubmit, dropdownRef, countries }: { handle
     }, [setSearch, setSelectedItem, setType]);
 
     // handle submit form
-    const onSubmit = (e?: React.FormEvent<HTMLFormElement> | undefined) => {
+    const onSubmit = useCallback((e?: React.FormEvent<HTMLFormElement> | undefined) => {
         // prevent default form submission
         if (e) {
             e.preventDefault();
@@ -78,7 +78,7 @@ export function useSearchForm({ handleSubmit, dropdownRef, countries }: { handle
         dropdownRef?.current?.close();
         // call handleSubmit callback
         handleSubmit(selectedItem);
-    };
+    }, [selectedItem, dropdownRef, handleSubmit]);
 
     // handle open dropdown
     const onOpen = useCallback(() => {

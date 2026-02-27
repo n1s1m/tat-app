@@ -1,7 +1,8 @@
 import { HotelData } from '@/lib/hooks/third-task/use-prices-and-hotel-by-country';
 import { Button } from '@/components/button/button';
+import { Country } from '@/lib/models';
 
-export default function Hotel({ data }: { data: HotelData }) {
+export default function Hotel({ data }: { data: HotelData & { country: Country, startDate: string, price: string } }) {
 
     return (
         <div className="card min-w-250 p-4 rounded-lg">

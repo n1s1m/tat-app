@@ -1,9 +1,9 @@
-import { ManagedTimerId, timeoutManager, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { pricesApi } from '@/lib/api/prices';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 
-export function useStartSearctPrices(countryID: string) {
+export function useStartSearchPrices(countryID: string) {
   return useQuery(pricesApi.startSearchQueryOptions(countryID));
 }
 
