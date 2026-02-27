@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Country, GeoEntity } from '@/lib/models';
-
-const addTypeAndCountryId = (type: 'country') => (entity: Country): GeoEntity => ({ ...entity, type, countryId: entity.id });
+import { addTypeAndCountryId } from '@/lib/helpers/add-type-and-country-id';
 
 export function useCountries(): { countries: Array<GeoEntity>, loading: boolean, error: Error | null } {
     const [countries, setCountries] = useState<Array<GeoEntity>>([]);

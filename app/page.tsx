@@ -25,9 +25,9 @@ export default function Home() {
           </span>
           <LinkIcon className="w-4 h-4 pl-4" />
         </Link>
-        <Link href="/fourth" className="btn-link ">
+        <Link href="/bonus" className="btn-link ">
           <span className="font-bold text-lg">
-            Fourth task
+            Bonus
           </span>
           <LinkIcon className="w-4 h-4 pl-4" />
         </Link>

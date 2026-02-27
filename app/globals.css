@@ -68,3 +68,27 @@ body {
 .dropdown-item:hover {
   background-color: #f0f0f0;
 }
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  max-width: 650px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #f3f2f2;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  border-radius: 0.5rem;
+}

@@ -22,7 +22,7 @@ export default function SecondPage() {
       </SearchForm>
       {loading && <div>Loading...</div>}
       {error && <p className="text-red">Error: {error.message}</p>}
-      {isEmpty && <div>No data</div>}
+      {isEmpty && <div>За вашим запитом турів не знайдено</div>}
       {!loading && data?.length > 0 && <div>Data: {JSON.stringify(data)}</div>}
     </div>    
   );

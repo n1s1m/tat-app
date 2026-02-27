@@ -1,19 +1,8 @@
-import { ManagedTimerId, timeoutManager, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { pricesApi } from '@/lib/api/prices';
-import { RefObject, useEffect, useRef, useState } from 'react';
-
-
-export function useStartSearctPrices(countryID: string) {
-  return useQuery(pricesApi.startSearchQueryOptions(countryID));
-}
-
-export function useGetSearchPrices(token: string, retry: number = 2) {
-  return useQuery(pricesApi.getSearchPricesQueryOptions(token, retry));
-}
-
-export function useStopSearchPrices(token: string, retry: number = 2) {
-  return useQuery(pricesApi.stopSearchQueryOptions(token, retry));
-}
+import { useRef, useState } from 'react';
+import { hotelsApi } from '@/lib/api/hotels';
+import { Country, Hotel } from '@/lib/models';
 
 interface SearchPricesState {
   loading: boolean;
@@ -31,24 +20,35 @@ export interface SearchPricesResponse {
   startDate: string;
 }
 
-export function useSearchPrices(retry: number = 2) {
+export type HotelData = SearchPricesResponse & { hotel: Hotel, price: string, startDate: string, country: Country, countryId: string };
+
+export function usePricesAndHotelsByCountry(retry: number = 2): { loading: boolean, error: Error | null, data: HotelData[], isEmpty: boolean, fetchPrices: (countryID: string) => void } {
   const [{ loading, error, data, isEmpty }, setState] = useState<SearchPricesState>({ loading: false, error: null, data: [], isEmpty: false });
   const queryClient = useQueryClient();
 
   const abortControllerRef = useRef<AbortController | null>(null);
+  const tokenRef = useRef<string | undefined>(undefined);
 
   const fetchPrices = async (countryID: string) => {
+    // abort previous request if it is still running
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
+    }
+    // stop search if it is already running
+    if (tokenRef.current) {
+      await queryClient.fetchQuery(pricesApi.stopSearchQueryOptions(tokenRef.current, retry));
     }
     abortControllerRef.current = new AbortController();
     const { signal } = abortControllerRef.current;
 
     await queryClient.cancelQueries({ queryKey: pricesApi.queryKeys.getSearchPricesAll() }); // cancel all getSearchPrices queries
+    await queryClient.cancelQueries({ queryKey: hotelsApi.queryKeys.all }); // cancel all getHotels queries
+
     setState((prev) => ({ ...prev, loading: true, error: null, data: [], isEmpty: false }));
 
     try {
       const startResponse = await queryClient.fetchQuery(pricesApi.startSearchQueryOptions(countryID, retry));
+      tokenRef.current = startResponse.token as string;
       const waitUntil = (Date.parse(new Date(startResponse.waitUntil).toISOString()) - Date.parse(new Date().toISOString()));
 
       if (signal.aborted) {
@@ -63,13 +63,23 @@ export function useSearchPrices(retry: number = 2) {
         });
       })
 
-      const pricesResponse = await queryClient.fetchQuery(pricesApi.getSearchPricesQueryOptions(startResponse.token, retry));
-      const data = Object.values(pricesResponse || {});
-      setState((prev) => ({ ...prev, loading: false, error: null, data: data as SearchPricesResponse[], isEmpty: data.length === 0 }));
+      const pricesResponse = await queryClient.fetchQuery(pricesApi.getSearchPricesQueryOptions(tokenRef.current as string, retry));
+      const hotelsResponse = await queryClient.fetchQuery(hotelsApi.getHotelsQueryOptions(countryID));
+
+      const data = Object.values(pricesResponse || {}).map((price: any) => {
+        const hotel = hotelsResponse[price.hotelID];
+        return {
+          ...price,
+          ...(hotel && { hotel }),
+        }
+      }) as HotelData[];
+      // update state with the data and the hotel
+      setState((prev) => ({ ...prev, loading: false, error: null, data: data as HotelData[], isEmpty: data.length === 0 }));
     } catch (error) {
+      // update state with the error and empty data
       setState((prev) => ({ ...prev, loading: false, error: error as Error, data: [], isEmpty: false }));
     }
   };
 
-  return { loading, error, data, isEmpty, fetchPrices };
+  return { loading, error, data: data as HotelData[], isEmpty, fetchPrices };
 }

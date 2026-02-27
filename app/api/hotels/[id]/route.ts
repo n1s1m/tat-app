@@ -4,7 +4,7 @@ import { getHotel } from '@/lib/mockApi';
 export async function GET(_: any, { params }: { params: Promise<{ id: string }> }): Promise<any> {
   try {
     const { id } = await params;
-    return NextResponse.json(getHotel(Number(id)));
+    return NextResponse.json(await getHotel(Number(id)));
   } catch (e: unknown) {
     if (e instanceof Error) {
       return NextResponse.json(
