@@ -12,7 +12,7 @@ export const pricesApi = {
     stopSearch: (token: string) => [...pricesApi.queryKeys.all, 'stop', token] as const,
   },
 
-  startSearchQueryOptions: (countryID: string) => {
+  startSearchQueryOptions: (countryID: string, retry: number = 2) => {
     return queryOptions({
       queryKey: pricesApi.queryKeys.startSearch(countryID),
       queryFn: async ({ signal }) => {
@@ -21,15 +21,14 @@ export const pricesApi = {
           body: JSON.stringify({ countryID }),
           signal,
         });
-        return response.json().catch((error) => {
-          return { error: true, message: error.message };
-        }).then((response) => {
+        return response.json().then((response) => {
           if (response.error) {
-            throw new Error(response.message);
+            throw new Error(response.error);
           }
           return response;
         });
       },
+      retry,
     });
   },
 
@@ -41,11 +40,9 @@ export const pricesApi = {
           method: 'GET',
           signal,
         })
-        return response.json().catch((error) => {
-          return { error: true, message: error.message };
-        }).then((response) => {
+        return response.json().then((response) => {
           if (response.error) {
-            throw new Error(response.message);
+            throw new Error(response.error);
           }
           return response;
         });
@@ -62,11 +59,9 @@ export const pricesApi = {
           method: 'DELETE',
           signal,
         });
-        return response.json().catch((error) => {
-          return { error: true, message: error.message };
-        }).then((response) => {
+        return response.json().then((response) => {
           if (response.error) {
-            throw new Error(response.message);
+            throw new Error(response.error);
           }
           return response;
         });
