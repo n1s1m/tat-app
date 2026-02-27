@@ -4,7 +4,7 @@ import { useEffect, useCallback, useState } from "react";
 
 import { DropdownRef } from "@/components/dropdown/dropdown";
 
-import { GeoEntity } from "../../models";
+import { GeoEntity } from "@/lib/models";
 import { useSearch } from "./use-search";
 
 

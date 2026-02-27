@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import { Hotel } from '../models';
+import { Hotel } from '@/lib/models';
 
 export const hotelsApi = {
   baseKey: 'hotels' as const,

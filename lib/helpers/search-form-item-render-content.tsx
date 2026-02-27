@@ -1,7 +1,7 @@
 import { CountryItem } from "@/components/search-form/country-item";
 import { CityItem } from "@/components/search-form/city-item";
 import { HotelItem } from "@/components/search-form/hotel-item";
-import { GeoEntity } from "../models";
+import { GeoEntity } from "@/lib/models";
 
 // render item content based on item type
 export const searchFormItemRenderContent = (item: GeoEntity): React.ReactNode => {
