@@ -43,7 +43,7 @@ npm run dev
 
 ## Live Demo
 
-**[Відкрити демо на Vercel](https://your-project.vercel.app)**
+**[Відкрити демо на Vercel](https://traveling-app-sigma.vercel.app)**
 
 ---
 

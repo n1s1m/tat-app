@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState, memo, useRef, useImperativeHandle } from "react";
+import { useCallback, useEffect, useState, useRef, useImperativeHandle } from "react";
 import * as React from "react";
 
 import { X } from "lucide-react";
